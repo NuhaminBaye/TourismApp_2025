@@ -1,5 +1,6 @@
 # TourismApp_2025
 TourismApp
+
 Explore Section
 Discover detailed information about Ethiopian destinations, events, and attractions. Easily search for locations and view comprehensive descriptions, historical context, and pricing details.
 
