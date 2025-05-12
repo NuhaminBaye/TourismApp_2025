@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ቱሪዝም መተግበሪያ</string>
+    
+    <!-- Authentication -->
+    <string name="login">ግባ</string>
+    <string name="signup">ተመዝገብ</string>
+    <string name="email">ኢሜይል</string>
+    <string name="password">የይለፍ ቃል</string>
+    <string name="username">የተጠቃሚ ስም</string>
+    <string name="confirm_password">የይለፍ ቃል አረጋግጥ</string>
+    <string name="forgot_password">የይለፍ ቃልዎን ረሱ?</string>
+    <string name="login_error">ልክ ያልሆነ ኢሜይል ወይም የይለፍ ቃል</string>
+    <string name="signup_error">ኢሜይል አስቀድሞ ተመዝግቧል</string>
+    
+    <!-- Navigation -->
+    <string name="home">ቤት</string>
+    <string name="explore">አስስ</string>
+    <string name="wishlist">የምትመኝበት ዝርዝር</string>
+    <string name="profile">መገለጫ</string>
+    
+    <!-- Explore -->
+    <string name="add_explore">አዲስ ቦታ አክል</string>
+    <string name="edit_explore">ቦታ አርትዕ</string>
+    <string name="delete_explore">ቦታ ሰርዝ</string>
+    <string name="title">ርዕስ</string>
+    <string name="description">መግለጫ</string>
+    <string name="rating">ደረጃ</string>
+    <string name="image_url">የምስል አድራሻ</string>
+    
+    <!-- Wishlist -->
+    <string name="add_to_wishlist">ወደ የምትመኝበት ዝርዝር አክል</string>
+    <string name="remove_from_wishlist">ከየምትመኝበት ዝርዝር አስወግድ</string>
+    <string name="empty_wishlist">የምትመኝበት ዝርዝር ባዶ ነው</string>
+    
+    <!-- Profile -->
+    <string name="logout">ውጣ</string>
+    <string name="change_language">ቋንቋ ቀይር</string>
+    <string name="settings">ቅንብሮች</string>
+    
+    <!-- Common -->
+    <string name="save">አስቀምጥ</string>
+    <string name="cancel">ሰርዝ</string>
+    <string name="delete">ሰርዝ</string>
+    <string name="edit">አርትዕ</string>
+    <string name="error">ስህተት</string>
+    <string name="success">ተሳክቷል</string>
+</resources> 

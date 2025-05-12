@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Tourism App</string>
+    
+    <!-- Authentication -->
+    <string name="login">Login</string>
+    <string name="signup">Sign Up</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="username">Username</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="login_error">Invalid email or password</string>
+    <string name="signup_error">Email already registered</string>
+    
+    <!-- Navigation -->
+    <string name="home">Home</string>
+    <string name="explore">Explore</string>
+    <string name="wishlist">Wishlist</string>
+    <string name="profile">Profile</string>
+    
+    <!-- Explore -->
+    <string name="add_explore">Add New Place</string>
+    <string name="edit_explore">Edit Place</string>
+    <string name="delete_explore">Delete Place</string>
+    <string name="title">Title</string>
+    <string name="description">Description</string>
+    <string name="rating">Rating</string>
+    <string name="image_url">Image URL</string>
+    
+    <!-- Wishlist -->
+    <string name="add_to_wishlist">Add to Wishlist</string>
+    <string name="remove_from_wishlist">Remove from Wishlist</string>
+    <string name="empty_wishlist">Your wishlist is empty</string>
+    
+    <!-- Profile -->
+    <string name="logout">Logout</string>
+    <string name="change_language">Change Language</string>
+    <string name="settings">Settings</string>
+    
+    <!-- Common -->
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
+    <string name="delete">Delete</string>
+    <string name="edit">Edit</string>
+    <string name="error">Error</string>
+    <string name="success">Success</string>
+</resources>
