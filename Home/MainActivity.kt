@@ -29,9 +29,6 @@ class MainActivity : ComponentActivity() {
                 composable(Screen.Feedback.route) { FeedbackScreen(navController = navController) }
             }
         }
-
-
-
     }
 }
 
