@@ -1,143 +1,144 @@
-package com.example.mobileapppro
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Check
-import androidx.compose.material.icons.filled.Person
-import androidx.compose.material3.Button
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+package com.example.tourismappfinal.ui.screens
+
+import androidx.compose.foundation.layout.*
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.SpanStyle
-import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.text.input.VisualTransformation
-import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
+import com.example.tourismappfinal.R
+import com.example.tourismappfinal.ViewModel.AuthViewModel
+import com.example.tourismappfinal.util.ValidationUtils
+import com.example.tourismappfinal.ui.components.AppBottomNavigation
+import com.example.tourismappfinal.ui.components.BottomNavItem
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun LogIn(navController: NavController, viewModel: LoginViewModel = androidx.lifecycle.viewmodel.compose.viewModel()) {
+fun LoginScreen(
+    authViewModel: AuthViewModel,
+    onNavigateToRegister: () -> Unit,
+    onLoginSuccess: () -> Unit,
+    onNavigateToHome: () -> Unit,
+    onNavigateToExplore: () -> Unit,
+    onNavigateToFavorites: () -> Unit
+) {
+    val context = LocalContext.current
+    var email by remember { mutableStateOf("") }
+    var password by remember { mutableStateOf("") }
+    var emailError by remember { mutableStateOf<String?>(null) }
+    var passwordError by remember { mutableStateOf<String?>(null) }
 
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(50.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Icon(
-            modifier = Modifier.size(150.dp),
-            imageVector = Icons.Default.Person,
-            contentDescription = "Profile Icon"
-        )
+    val authError by authViewModel.authError.collectAsState()
+    val currentUser by authViewModel.currentUser.collectAsState()
 
-        Text("User Login", fontSize = 28.sp)
-        Spacer(modifier = Modifier.height(35.dp))
+    LaunchedEffect(currentUser) {
+        currentUser?.let {
+            onLoginSuccess()
+        }
+    }
 
-        OutlinedTextField(
-            value = viewModel.username,
-            onValueChange = { viewModel.username = it },
-            label = { Text("User Name") },
-            shape = RoundedCornerShape(25.dp)
-        )
-        Spacer(modifier = Modifier.height(16.dp))
-
-        OutlinedTextField(
-            value = viewModel.email,
-            onValueChange = { viewModel.email = it },
-            label = { Text("E-mail") },
-            shape = RoundedCornerShape(25.dp)
-        )
-        Spacer(modifier = Modifier.height(16.dp))
-
-        OutlinedTextField(
-            value = viewModel.password,
-            onValueChange = { viewModel.password = it },
-            label = { Text("Password") },
-            visualTransformation = if (viewModel.passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
-            trailingIcon = {
-                val iconRes = if (viewModel.passwordVisible)
-                    R.drawable.baseline_visibility_24
-                else
-                    R.drawable.baseline_visibility_off_24
-
-                IconButton(onClick = { viewModel.togglePasswordVisibility() }) {
-                    Icon(
-                        painter = painterResource(id = iconRes),
-                        contentDescription = if (viewModel.passwordVisible) "Hide password" else "Show password",
-                        tint = if (viewModel.passwordVisible) Color.Blue else Color.Gray
-                    )
-                }
-            },
-            shape = RoundedCornerShape(25.dp)
-        )
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-        Button(
-            onClick = {
-                viewModel.login {
-                    navController.navigate("home") {
-                        popUpTo("login") { inclusive = true }
-                        launchSingleTop = true
+    Scaffold(
+        bottomBar = {
+            AppBottomNavigation(
+                currentRoute = BottomNavItem.PROFILE,
+                onNavigate = { route ->
+                    when (route) {
+                        BottomNavItem.HOME -> onNavigateToHome()
+                        BottomNavItem.EXPLORE -> onNavigateToExplore()
+                        BottomNavItem.FAVORITES -> onNavigateToFavorites()
+                        else -> {} // Already on PROFILE
                     }
                 }
-            },
-            modifier = Modifier
-                .padding(25.dp)
-                .width(150.dp)
-                .height(45.dp),
-            shape = RoundedCornerShape(40.dp)
-        ) {
-            Text("LogIn", fontSize = 18.sp)
+            )
         }
+    ) { paddingValues ->
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(paddingValues),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Text(
+                text = stringResource(id = R.string.login),
+                style = MaterialTheme.typography.headlineMedium
+            )
 
-        Spacer(modifier = Modifier.height(4.dp))
+            Spacer(modifier = Modifier.height(32.dp))
 
-        Signins {
-            navController.navigate("signup") {
-                popUpTo("login") { inclusive = true }
-                launchSingleTop = true
+            OutlinedTextField(
+                value = email,
+                onValueChange = {
+                    email = it
+                    emailError = null
+                },
+                label = { Text(stringResource(id = R.string.email)) },
+                isError = emailError != null,
+                supportingText = { emailError?.let { Text(it) } },
+                modifier = Modifier.fillMaxWidth()
+            )
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            OutlinedTextField(
+                value = password,
+                onValueChange = {
+                    password = it
+                    passwordError = null
+                },
+                label = { Text(stringResource(id = R.string.password)) },
+                visualTransformation = PasswordVisualTransformation(),
+                isError = passwordError != null,
+                supportingText = { passwordError?.let { Text(it) } },
+                modifier = Modifier.fillMaxWidth()
+            )
+
+            Spacer(modifier = Modifier.height(8.dp))
+
+            authError?.let {
+                Text(
+                    text = it,
+                    color = MaterialTheme.colorScheme.error,
+                    modifier = Modifier.padding(vertical = 8.dp)
+                )
+            }
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            Button(
+                onClick = {
+                    var isValid = true
+
+                    if (!ValidationUtils.isValidEmail(email)) {
+                        emailError = context.getString(R.string.error_invalid_email)
+                        isValid = false
+                    }
+
+                    if (!ValidationUtils.isValidPassword(password)) {
+                        passwordError = context.getString(R.string.error_invalid_password)
+                        isValid = false
+                    }
+
+                    if (isValid) {
+                        authViewModel.login(email, password)
+                    }
+                },
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text(stringResource(id = R.string.login))
+            }
+
+            Spacer(modifier = Modifier.height(8.dp))
+
+            TextButton(
+                onClick = onNavigateToRegister,
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text(stringResource(id = R.string.register))
             }
         }
-    }
-}
-
-@Composable
-fun Signins(control:()->Unit){
-    var newtext= buildAnnotatedString {
-        append("Don't Have An Account? ")
-        withStyle(style= SpanStyle(color = Color.Red)){
-            append("SignUp")
-        }
-    }
-    TextButton(onClick = control) {
-        Text(text = newtext,
-            fontSize = 18.sp,)
-//        modifier = Modifier.clickable { })
     }
 }
