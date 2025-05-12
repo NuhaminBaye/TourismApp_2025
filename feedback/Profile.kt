@@ -17,14 +17,16 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import androidx.compose.runtime.collectAsState
+
 
 @Composable
 fun ProfileScreen(
     navController: NavController,
     authViewModel: AuthViewModel = viewModel() // ViewModel holding user data
 ) {
-    val username by authViewModel.username.collectAsState() // e.g., from signup
-    val name by authViewModel.names.collectAsState()
+    val username by authViewModel.username.collectAsState()
+
 
     Column(
         modifier = Modifier
@@ -52,8 +54,11 @@ fun ProfileScreen(
             Spacer(modifier = Modifier.width(16.dp))
 
             Column {
-                Text(name, fontWeight = FontWeight.Bold, fontSize = 25.sp)
-                Text("@$username", color = Color.Gray)
+                Text("UserName", fontWeight = FontWeight.Bold, fontSize = 25.sp)
+                Text(
+                   "@meklit"
+                )
+
             }
         }
 
