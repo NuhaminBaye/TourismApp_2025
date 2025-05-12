@@ -26,6 +26,4 @@ fun WishList(modifier: Modifier = Modifier){
             fontWeight = FontWeight.SemiBold, color=Color.White)
     }
 
-
-
 }

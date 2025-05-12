@@ -41,7 +41,11 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.compose.material3.Icon as Icon
 
-
+/**
+ * Composable function for user registration screen
+ * @param navController Navigation controller for screen transitions
+ * @param viewModel ViewModel handling sign-up logic and state management
+ */
 @Composable
 fun SignUp(
     navController: NavController,
@@ -166,6 +170,11 @@ fun SignUp(
         }
     }
 }
+
+/**
+ * Helper composable for login/signup navigation text
+ * @param controls Callback function for navigation action
+ */
 
 @Composable
 fun Signs(controls:()->Unit){

@@ -10,7 +10,6 @@ import kotlinx.coroutines.flow.StateFlow
  * selected item in the bottom navigation. It uses `StateFlow` to allow the UI to
  * observe changes in the selected item.
  */
-
 class MainViewModel : ViewModel() {
     private val _selectedIndex = MutableStateFlow(0)
 
